@@ -32,3 +32,9 @@ it("rejects a value that is not one of a field type's literals", () => {
   expect(result.ok).toBe(false);
   expect(result.output).toContain("TS2322");
 });
+
+it("rejects one capability's key assigned to another's type", () => {
+  const result = typeCheck("negative-wrong-key.ts");
+  expect(result.ok).toBe(false);
+  expect(result.output).toContain("TS2322");
+});

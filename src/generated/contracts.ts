@@ -28,6 +28,38 @@ export interface Column {
   truncate?: number;
 }
 
+export interface CommandDef {
+  argumentHint?: string;
+  body?: string;
+  description: string;
+  name: string;
+  shell?: string;
+}
+
+export interface CommandsCapability {
+  commands(): CommandDef[] | Promise<CommandDef[]>;
+}
+
+export interface ConfigHistoryCapability {
+  history(): Promise<HistoryEntry[]>;
+  history(query: HistoryQuery): Promise<HistoryEntry[]>;
+  restore(entryId: string): Promise<ActionResult>;
+}
+
+export interface CrossAppSyncCapability {
+  sync(): Promise<SyncResult>;
+}
+
+export interface CustomEndpoint {
+  baseUrl: string;
+  id: string;
+  label: string;
+}
+
+export interface CustomEndpointsCapability {
+  endpoints(): Promise<CustomEndpoint[]>;
+}
+
 export interface DataSpec {
   paths?: string[];
 }
@@ -51,11 +83,43 @@ export interface FieldSpec {
   type: "boolean" | "number" | "string" | "secret" | "select" | "multiline" | "list";
 }
 
+export interface HistoryEntry {
+  files: string[];
+  id: string;
+  summary: string;
+  ts: number;
+}
+
+export interface HistoryQuery {
+  cursor?: string;
+  home?: string;
+  limit?: number;
+}
+
 export interface ItemShape {
   badge?: string;
   icon?: string;
   subtitle?: string;
   title: string;
+}
+
+export interface ManagedPlugin {
+  enabled: boolean;
+  id: string;
+  url?: string;
+  version?: string;
+}
+
+export interface MarketplaceEntry {
+  description?: string;
+  displayName?: string;
+  id: string;
+  topics?: string[];
+  url: string;
+}
+
+export interface MarketplaceSourceCapability {
+  entries(): Promise<MarketplaceEntry[]>;
 }
 
 export interface NodeStyle {
@@ -64,6 +128,14 @@ export interface NodeStyle {
   pad?: "none" | "tight" | "normal";
   tone?: string;
   width?: string;
+}
+
+export interface PluginManagementCapability {
+  install(url: string): Promise<ActionResult>;
+  list(): Promise<ManagedPlugin[]>;
+  remove(id: string): Promise<ActionResult>;
+  repair(id: string): Promise<ActionResult>;
+  update(id: string): Promise<ActionResult>;
 }
 
 export interface ScreenActionRequest {
@@ -101,6 +173,12 @@ export interface ScreenSpec {
   surfaces?: Record<string, ScreenNode>;
 }
 
+export interface ScreensCapability {
+  invoke(request: ScreenActionRequest): Promise<ActionResult>;
+  read(request: ScreenDataRequest): Promise<ScreenData>;
+  screens(): ScreenSpec[] | Promise<ScreenSpec[]>;
+}
+
 export interface SectionSpec {
   actions?: string[];
   description?: string;
@@ -109,5 +187,17 @@ export interface SectionSpec {
   label: string;
   order?: number;
   scope?: "home" | "allHomes";
+}
+
+export interface SettingsCapability {
+  run(actionId: string): Promise<ActionResult>;
+  run(actionId: string, input: Record<string, unknown>): Promise<ActionResult>;
+  schema(): CapabilitySchema | Promise<CapabilitySchema>;
+}
+
+export interface SyncResult {
+  files: string[];
+  homes: string[];
+  plugins: string[];
 }
 
