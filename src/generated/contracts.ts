@@ -31,7 +31,7 @@ export interface ActivityPage {
 
 export interface ActivityQuery {
   cursor?: string;
-  impacts?: "debug" | "info" | "notice" | "warning" | "error"[];
+  impacts?: ActivityImpact[];
   limit?: number;
   since?: number;
   sources?: string[];
@@ -44,7 +44,7 @@ export interface ActivityRecord {
   details: Record<string, unknown>;
   home: string;
   id: string;
-  impact: "debug" | "info" | "notice" | "warning" | "error";
+  impact: ActivityImpact;
   source: string;
   subject?: ActivitySubject;
   text: string;
@@ -61,7 +61,7 @@ export interface ActivityService {
 export interface ActivitySpec {
   action: string;
   details?: Record<string, unknown>;
-  impact?: "debug" | "info" | "notice" | "warning" | "error";
+  impact?: ActivityImpact;
   subject?: ActivitySubject;
   topic: string;
 }
@@ -82,7 +82,7 @@ export interface CapabilitySchema {
 export interface Column {
   key: string;
   label?: string;
-  tone?: "normal" | "muted" | "mono" | "old" | "new" | (string & {});
+  tone?: Tone;
   truncate?: number;
 }
 
@@ -145,7 +145,7 @@ export interface FieldOption {
 export interface FieldSpec {
   description?: string;
   group?: string;
-  itemType?: "string" | "number";
+  itemType?: ItemType;
   key: string;
   label?: string;
   max?: number;
@@ -153,7 +153,7 @@ export interface FieldSpec {
   options?: FieldOption[];
   placeholder?: string;
   step?: number;
-  type: "boolean" | "number" | "string" | "secret" | "select" | "multiline" | "list";
+  type: FieldType;
 }
 
 export interface HistoryEntry {
@@ -196,15 +196,15 @@ export interface MarketplaceSourceCapability {
 }
 
 export interface NodeStyle {
-  align?: "start" | "center" | "end";
+  align?: Align;
   grow?: number;
-  pad?: "none" | "tight" | "normal";
+  pad?: Pad;
   tone?: string;
   width?: string;
 }
 
 export interface NotificationEvent {
-  level: "info" | "success" | "warning" | "error";
+  level: NotificationLevel;
   message: string;
 }
 
@@ -266,7 +266,7 @@ export interface ScreenSpec {
   layout: ScreenNode;
   order?: number;
   refreshOn?: string[];
-  scope?: "home" | "allHomes";
+  scope?: Scope;
   surfaces?: Record<string, ScreenNode>;
 }
 
@@ -283,7 +283,7 @@ export interface SectionSpec {
   id: string;
   label: string;
   order?: number;
-  scope?: "home" | "allHomes";
+  scope?: Scope;
 }
 
 export interface SettingsCapability {
@@ -303,4 +303,20 @@ export interface SyncResult {
   homes: string[];
   plugins: string[];
 }
+
+export type ActivityImpact = "debug" | "info" | "notice" | "warning" | "error";
+
+export type Align = "start" | "center" | "end";
+
+export type FieldType = "boolean" | "number" | "string" | "secret" | "select" | "multiline" | "list";
+
+export type ItemType = "string" | "number";
+
+export type NotificationLevel = "info" | "success" | "warning" | "error";
+
+export type Pad = "none" | "tight" | "normal";
+
+export type Scope = "home" | "allHomes";
+
+export type Tone = "normal" | "muted" | "mono" | "old" | "new" | (string & {});
 
