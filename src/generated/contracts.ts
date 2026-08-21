@@ -1,5 +1,8 @@
 // Generated from Java sources. Do not edit.
 
+export interface AccountsService {
+}
+
 export interface ActionResult {
   message?: string;
   ok: boolean;
@@ -12,6 +15,54 @@ export interface ActionSpec {
   description?: string;
   id: string;
   label: string;
+}
+
+export interface ActivityPage {
+  nextCursor?: string;
+  records: ActivityRecord[];
+}
+
+export interface ActivityQuery {
+  cursor?: string;
+  impacts?: "debug" | "info" | "notice" | "warning" | "error"[];
+  limit?: number;
+  since?: number;
+  sources?: string[];
+  topics?: string[];
+  until?: number;
+}
+
+export interface ActivityRecord {
+  action: string;
+  details: Record<string, unknown>;
+  home: string;
+  id: string;
+  impact: "debug" | "info" | "notice" | "warning" | "error";
+  source: string;
+  subject?: ActivitySubject;
+  text: string;
+  topic: string;
+  ts: number;
+}
+
+export interface ActivityService {
+  emit(spec: ActivitySpec): void;
+  read(): Promise<ActivityPage>;
+  read(query: ActivityQuery): Promise<ActivityPage>;
+}
+
+export interface ActivitySpec {
+  action: string;
+  details?: Record<string, unknown>;
+  impact?: "debug" | "info" | "notice" | "warning" | "error";
+  subject?: ActivitySubject;
+  topic: string;
+}
+
+export interface ActivitySubject {
+  id?: string;
+  kind: string;
+  label?: string;
 }
 
 export interface CapabilitySchema {
@@ -136,6 +187,9 @@ export interface PluginManagementCapability {
   remove(id: string): Promise<ActionResult>;
   repair(id: string): Promise<ActionResult>;
   update(id: string): Promise<ActionResult>;
+}
+
+export interface RoutingService {
 }
 
 export interface ScreenActionRequest {

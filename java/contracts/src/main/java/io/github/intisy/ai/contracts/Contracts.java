@@ -40,6 +40,15 @@ public final class Contracts {
     @TsConstant(type = "CapabilityType<MarketplaceSourceCapability>", id = "marketplace-source")
     public static final Object MARKETPLACE_SOURCE = null;
 
+    @TsConstant(type = "ServiceType<AccountsService>", id = "accounts")
+    public static final Object ACCOUNTS = null;
+
+    @TsConstant(type = "ServiceType<RoutingService>", id = "routing")
+    public static final Object ROUTING = null;
+
+    @TsConstant(type = "ServiceType<ActivityService>", id = "activity")
+    public static final Object ACTIVITY = null;
+
     private Contracts() {
     }
 }
