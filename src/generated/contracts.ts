@@ -1,5 +1,12 @@
 // Generated from Java sources. Do not edit.
 
+export interface AccountRateLimitedEvent {
+  accountId?: string;
+  lane?: string;
+  provider: string;
+  resetAt?: number;
+}
+
 export interface AccountsService {
 }
 
@@ -91,10 +98,25 @@ export interface CommandsCapability {
   commands(): CommandDef[] | Promise<CommandDef[]>;
 }
 
+export interface ConfigChangedEvent {
+  name: string;
+}
+
 export interface ConfigHistoryCapability {
   history(): Promise<HistoryEntry[]>;
   history(query: HistoryQuery): Promise<HistoryEntry[]>;
   restore(entryId: string): Promise<ActionResult>;
+}
+
+export interface ConfigProfileChangedEvent {
+  files: string[];
+  profile: string;
+}
+
+export interface ConfigSnapshotEvent {
+  files: string[];
+  hash: string;
+  reason: string;
 }
 
 export interface CrossAppSyncCapability {
@@ -181,12 +203,33 @@ export interface NodeStyle {
   width?: string;
 }
 
+export interface NotificationEvent {
+  level: "info" | "success" | "warning" | "error";
+  message: string;
+}
+
+export interface PluginInstalledEvent {
+  name: string;
+  version: string;
+}
+
 export interface PluginManagementCapability {
   install(url: string): Promise<ActionResult>;
   list(): Promise<ManagedPlugin[]>;
   remove(id: string): Promise<ActionResult>;
   repair(id: string): Promise<ActionResult>;
   update(id: string): Promise<ActionResult>;
+}
+
+export interface PluginProgressEvent {
+  name: string;
+  pct?: number;
+  phase: string;
+}
+
+export interface ProxyStatusEvent {
+  port: number;
+  up: boolean;
 }
 
 export interface RoutingService {
@@ -247,6 +290,12 @@ export interface SettingsCapability {
   run(actionId: string): Promise<ActionResult>;
   run(actionId: string, input: Record<string, unknown>): Promise<ActionResult>;
   schema(): CapabilitySchema | Promise<CapabilitySchema>;
+}
+
+export interface SyncCompletedEvent {
+  files: string[];
+  homes: string[];
+  plugins: string[];
 }
 
 export interface SyncResult {

@@ -49,6 +49,33 @@ public final class Contracts {
     @TsConstant(type = "ServiceType<ActivityService>", id = "activity")
     public static final Object ACTIVITY = null;
 
+    @TsConstant(type = "TopicType<NotificationEvent>", id = "notification")
+    public static final Object NOTIFICATION = null;
+
+    @TsConstant(type = "TopicType<ProxyStatusEvent>", id = "proxy.status")
+    public static final Object PROXY_STATUS = null;
+
+    @TsConstant(type = "TopicType<AccountRateLimitedEvent>", id = "account.rate_limited")
+    public static final Object ACCOUNT_RATE_LIMITED = null;
+
+    @TsConstant(type = "TopicType<ConfigChangedEvent>", id = "config.changed")
+    public static final Object CONFIG_CHANGED = null;
+
+    @TsConstant(type = "TopicType<ConfigSnapshotEvent>", id = "config.snapshot")
+    public static final Object CONFIG_SNAPSHOT = null;
+
+    @TsConstant(type = "TopicType<ConfigProfileChangedEvent>", id = "config.profile_changed")
+    public static final Object CONFIG_PROFILE_CHANGED = null;
+
+    @TsConstant(type = "TopicType<PluginProgressEvent>", id = "plugin.progress")
+    public static final Object PLUGIN_PROGRESS = null;
+
+    @TsConstant(type = "TopicType<PluginInstalledEvent>", id = "plugin.installed")
+    public static final Object PLUGIN_INSTALLED = null;
+
+    @TsConstant(type = "TopicType<SyncCompletedEvent>", id = "sync.completed")
+    public static final Object SYNC_COMPLETED = null;
+
     private Contracts() {
     }
 }
