@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": ".",
+    "noUnusedLocals": true
+  },
+  "include": ["src/**/*", "test/**/*"],
+  // The conformance fixtures are compiled one at a time by their own test, and the negative one is
+  // type-invalid on purpose, so a project-wide pass over them would always be red.
+  "exclude": ["test/dts-conformance"]
+}
