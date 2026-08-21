@@ -16,3 +16,18 @@ project(":contract").projectDir = file("../api/java/contract")
 
 // :contracts - the capability, service and event vocabulary a host consumes and a plugin provides.
 include ":contracts"
+
+// :ir - core-ir's neutral IR types, from the core-ir submodule (../core-ir from here). The provider
+// contract references IrRequest/IrResponse and the routing profile references the Translator SPI, so
+// :spi cannot be expressed without them.
+include ":ir"
+project(":ir").projectDir = file("../core-ir/java/ir")
+
+// :spi - the plugin-to-host Java contract: the provider/proxy SPIs a provider implements and the
+// host-injected service SPIs it is handed. Package names are unchanged from where these lived
+// before, so no consumer's Java source changes; only its Gradle wiring does.
+include ":spi"
+
+// :js-base - the TeaVM implementations of :spi's host-injected services, shared by every provider's
+// own :teavm module rather than duplicated into each.
+include ":js-base"

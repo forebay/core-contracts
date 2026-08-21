@@ -1,0 +1,16 @@
+// The plugin-to-host Java contract. Zero-dependency by design (no gson/java.net/java.nio/reflection/
+// threads) so it transpiles cleanly under TeaVM, which every provider's own :teavm module does.
+//
+// InMemoryStore and TestJsonCodec are test doubles for two of this module's own SPIs, and the routing
+// engine's own tests need the same doubles. A test-fixtures source set shares them without putting a
+// test-only class into the shipped jar.
+apply plugin: "java-test-fixtures"
+
+dependencies {
+    // core-ir's IR types and Translator SPI: Provider.handleIr and RoutingProfile.translator name
+    // them. compileOnly keeps :ir's classes out of this module's own jar, because nothing here
+    // constructs a Translator; that is the caller's job. testImplementation re-adds it so a test can
+    // build a real one.
+    compileOnly project(":ir")
+    testImplementation project(":ir")
+}

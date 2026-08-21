@@ -1,0 +1,31 @@
+import org.teavm.gradle.api.JSModuleType
+import org.teavm.gradle.api.OptimizationLevel
+
+plugins {
+    id "org.teavm" version "0.15.0"
+}
+
+dependencies {
+    // Every class here implements one of :spi's host-injected service interfaces, so :spi is a real
+    // compile and runtime dependency rather than a host-provided one.
+    implementation project(":spi")
+    teavm teavm.libs.jsoApis
+}
+
+// The root subprojects block pins Java 8 for :spi's portability. TeaVM 0.15.0's classlib, jso-apis
+// and extension-spi artifacts publish a minimum-JVM metadata above 8, so this module needs 17 on
+// both compile steps: the extension's compatibility fixes Gradle's JVM-version attribute matching,
+// and the task options fix javac. Test sources here are therefore author-held against the JDK 1.8
+// rule rather than compiler-checked.
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.named("compileJava") {
+    options.release = 17
+}
+
+tasks.named("compileTestJava") {
+    options.release = 17
+}
